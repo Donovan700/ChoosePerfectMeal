@@ -10,11 +10,11 @@ const pool = new Pool({
 class FoodModel {
 
     async createFood(foodData) {
-        const { design, descr, difficul, time } = foodData;
+        const { numr, designr, descrr, difficulr, tempsr } = foodData;
 
         try {
-            const query = 'INSERT INTO repas (designr, descrr, difficulr, tempsr) VALUES ($1, $2, $3, $4) RETURNING *';
-            const values = [design, descr, difficul, time];
+            const query = 'INSERT INTO repas (numr, designr, descrr, difficulr, tempsr) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+            const values = [numr, designr, descrr, difficulr, tempsr];
             const { rows } = await pool.query(query, values);
             return rows[0];
         } catch (error) {

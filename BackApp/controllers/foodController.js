@@ -9,7 +9,7 @@ class FoodController {
             res.status(201).json(foodPlan);
         }
         catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -18,7 +18,7 @@ class FoodController {
             const foods = await FoodModel.getAllFoods();
             res.status(200).json(foods);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ class FoodController {
             }
             res.status(200).json(food);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -45,7 +45,7 @@ class FoodController {
             }
             res.status(202).json({ message: 'Food updated successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -58,7 +58,7 @@ class FoodController {
             }
             res.status(202).json({ message: 'Food deleted successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 }

@@ -34,7 +34,7 @@ class UserController {
     }
 
     async getUserById(req, res) {
-        const userId = req.params.iduser;
+        const userId = req.params.id;
         try {
             const user = await UserModel.getUserById(userId);
             if (!user) {
@@ -42,7 +42,7 @@ class UserController {
             }
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message});
         }
     }
 
@@ -56,7 +56,7 @@ class UserController {
             }
             res.status(202).json({ message: 'User updated successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 

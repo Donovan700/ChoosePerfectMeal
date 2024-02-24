@@ -38,7 +38,7 @@ class UserModel {
 
     async getUserById(userId) {
         try {
-            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE id = $1', [userId]);
+            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE iduser = ?', [userId]);
             return rows[0];
         } catch (error) {
             throw error;
@@ -47,8 +47,8 @@ class UserModel {
 
     async updateUser(userId, userData) {
         try {
-            const { name, email } = userData;
-            const { rowCount } = await pool.query('UPDATE utilisateur SET name = ?, email = ? WHERE id = ?', [name, email, userId]);
+            const { nomuser, emailuser } = userData;
+            const { rowCount } = await pool.query('UPDATE utilisateur SET nomuser = ?, emailuser = ? WHERE iduser = ?', [nomuser, emailuser, userId]);
             return rowCount > 0;
         } catch (error) {
             throw error;
