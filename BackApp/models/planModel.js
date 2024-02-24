@@ -10,7 +10,7 @@ const pool = new Pool({
 class PlanModel {
 
     async createPlan(planData) {
-        const { dateplan } = planData;
+        const { idplan, dateplan } = planData;
 
         try {
             const query = 'INSERT INTO plan (dateplan) VALUES ($1) RETURNING *';
