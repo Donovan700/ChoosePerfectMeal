@@ -5,14 +5,14 @@ class TypeController {
     async createType(req, res) {
         try {
             if (!req.body) {
-                return res.status(400).json({ error: 'Bad Request', message: 'No user data provided' });
+                return res.status(400).json({ error: 'Bad Request', message: 'No types data provided' });
             }
 
-            const { id, ...userData } = req.body;
+            const { numt, ...userData } = req.body;
             console.log(userData);
     
-            if (id) {
-                return res.status(400).json({ error: 'Bad Request', message: 'User ID should not be provided' });
+            if (numt) {
+                return res.status(400).json({ error: 'Bad Request', message: 'Types ID should not be provided' });
             }
     
             const newUser = await TypeModel.createType(userData);
@@ -28,6 +28,7 @@ class TypeController {
     async getAllTypes(req, res) {
         try {
             const users = await TypeModel.getAllTypes();
+            console.log("Types listed 200");
             res.status(200).json(users);
         } catch (error) {
             res.status(500).send('Internal Server Error');
@@ -35,11 +36,11 @@ class TypeController {
     }
 
     async getTypeById(req, res) {
-        const userId = req.params.iduser;
+        const typeId = req.params.numt;
         try {
-            const user = await TypeModel.getTypeById(userId);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
+            const type = await TypeModel.getTypeById(typeId);
+            if (!type) {
+                return res.status(404).json({ message: 'Type not found' });
             }
             res.status(200).json(user);
         } catch (error) {
@@ -48,27 +49,27 @@ class TypeController {
     }
 
     async updateType(req, res) {
-        const userId = req.params.id;
-        const userData = req.body;
+        const typeId = req.params.numt;
+        const typeData = req.body;
         try {
-            const success = await TypeModel.updateType(userId, userData);
+            const success = await TypeModel.updateType(typeId, typeData);
             if (!success) {
-                return res.status(404).json({ message: 'User not found' });
+                return res.status(404).json({ message: 'Type not found' });
             }
-            res.status(202).json({ message: 'User updated successfully' });
+            res.status(202).json({ message: 'Type updated successfully' });
         } catch (error) {
             res.status(500).send('Internal Server Error');
         }
     }
 
     async deleteType(req, res) {
-        const userId = req.params.id;
+        const typeId = req.params.numt;
         try {
-            const success = await TypeModel.deleteType(userId);
+            const success = await TypeModel.deleteType(typeId);
             if (!success) {
-                return res.status(404).json({ message: 'User not found' });
+                return res.status(404).json({ message: 'Type not found' });
             }
-            res.status(202).json({ message: 'User deleted successfully' });
+            res.status(202).json({ message: 'Type deleted successfully' });
         } catch (error) {
             res.status(500).send('Internal Server Error');
         }

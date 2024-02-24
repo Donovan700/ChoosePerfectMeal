@@ -12,14 +12,10 @@ class UserModel {
 
     async createUser(userData) {
         try {
-            // if (!userData || !userData.id || !userData.name || !userData.email || !userData.pwd) {
-            //     throw new Error('Missing user data');
-            // }
+            const { iduser, nomuser, emailuser, mdpuser } = userData;
     
-            const { id, name, email, pwd } = userData;
-    
-            const query = 'INSERT INTO utilisateur (id, name, email, pwd) VALUES ($1, $2, $3, $4) RETURNING *';
-            const values = [id, name, email, pwd];
+            const query = 'INSERT INTO utilisateur (iduser, nomuser, emailuser, mdpuser) VALUES ($1, $2, $3, $4) RETURNING *';
+            const values = [iduser, nomuser, emailuser, mdpuser];
     
             const { rows } = await pool.query(query, values);
             return rows[0];
@@ -28,20 +24,6 @@ class UserModel {
             throw error;
         }
     }
-    
-
-    // async createUser(userData) {
-    //     const { id, name, email, pwd } = userData;
-    
-    //     try {
-    //         const query = 'INSERT INTO utilisateur (id, name, email, pwd) VALUES ($1, $2, $3, $4) RETURNING *';
-    //         const values = [id, name, email, pwd];
-    //         const { rows } = await pool.query(query, values);
-    //         return rows[0];
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
     
 
 
@@ -75,7 +57,7 @@ class UserModel {
 
     async deleteUser(userid) {
         try {
-            const {rowCount} = await pool.query('DELETE FROM utilisateur WHERE id = ?', userid);
+            const {rowCount} = await pool.query('DELETE FROM utilisateur WHERE iduser = ?', [userid]);
             return rowCount > 0;
         }
         catch (error) {

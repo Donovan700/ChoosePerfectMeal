@@ -9,7 +9,6 @@ class UserController {
             }
 
             const { id, ...userData } = req.body;
-            console.log(userData);
     
             if (id) {
                 return res.status(400).json({ error: 'Bad Request', message: 'User ID should not be provided' });
@@ -70,7 +69,7 @@ class UserController {
             }
             res.status(202).json({ message: 'User deleted successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 }
