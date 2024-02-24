@@ -9,7 +9,7 @@ class PlanController {
             res.status(201).json(newPlan);
         }
         catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -18,7 +18,7 @@ class PlanController {
             const plans = await PlanModel.getAllplans();
             res.status(200).json(plans);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ class PlanController {
             }
             res.status(200).json(plan);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -45,7 +45,7 @@ class PlanController {
             }
             res.status(202).json({ message: 'Plan updated successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -58,7 +58,7 @@ class PlanController {
             }
             res.status(202).json({ message: 'Plan deleted successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 }
