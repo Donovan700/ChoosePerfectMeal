@@ -58,7 +58,7 @@ class TypeModel {
 
     async deleteType(numt) {
         try {
-            const {rowCount} = await pool.query('DELETE FROM type WHERE id = ?', numt);
+            const { rowCount } = await pool.query('DELETE FROM type WHERE numt = ?', [numt]);
             return rowCount > 0;
         }
         catch (error) {

@@ -8,14 +8,13 @@ class TypeController {
                 return res.status(400).json({ error: 'Bad Request', message: 'No types data provided' });
             }
 
-            const { numt, ...userData } = req.body;
-            console.log(userData);
+            const { id, ...typeData } = req.body;
     
-            if (numt) {
+            if (id) {
                 return res.status(400).json({ error: 'Bad Request', message: 'Types ID should not be provided' });
             }
     
-            const newUser = await TypeModel.createType(userData);
+            const newUser = await TypeModel.createType(typeData);
             res.status(201).json(newUser);
         } catch (error) {
             console.error(error);
@@ -31,20 +30,20 @@ class TypeController {
             console.log("Types listed 200");
             res.status(200).json(users);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
     async getTypeById(req, res) {
-        const typeId = req.params.numt;
+        const typeId = req.params.id;
         try {
             const type = await TypeModel.getTypeById(typeId);
             if (!type) {
                 return res.status(404).json({ message: 'Type not found' });
             }
-            res.status(200).json(user);
+            res.status(200).json(type);
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
@@ -58,12 +57,12 @@ class TypeController {
             }
             res.status(202).json({ message: 'Type updated successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 
     async deleteType(req, res) {
-        const typeId = req.params.numt;
+        const typeId = req.params.id;
         try {
             const success = await TypeModel.deleteType(typeId);
             if (!success) {
@@ -71,7 +70,7 @@ class TypeController {
             }
             res.status(202).json({ message: 'Type deleted successfully' });
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            res.status(500).json({ error: 'Internal Server Error', message: error.message });
         }
     }
 }
