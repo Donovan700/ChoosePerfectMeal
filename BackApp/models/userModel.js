@@ -9,18 +9,40 @@ const pool = new Pool({
 
 class UserModel {
 
-    async createUser(userData) {
-        const { name, email } = userData;
 
+    async createUser(userData) {
         try {
-            const query = 'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *';
-            const values = [name, email];
+            // if (!userData || !userData.id || !userData.name || !userData.email || !userData.pwd) {
+            //     throw new Error('Missing user data');
+            // }
+    
+            const { id, name, email, pwd } = userData;
+    
+            const query = 'INSERT INTO utilisateur (id, name, email, pwd) VALUES ($1, $2, $3, $4) RETURNING *';
+            const values = [id, name, email, pwd];
+    
             const { rows } = await pool.query(query, values);
             return rows[0];
         } catch (error) {
+            console.error('Error creating user:', error);
             throw error;
         }
     }
+    
+
+    // async createUser(userData) {
+    //     const { id, name, email, pwd } = userData;
+    
+    //     try {
+    //         const query = 'INSERT INTO utilisateur (id, name, email, pwd) VALUES ($1, $2, $3, $4) RETURNING *';
+    //         const values = [id, name, email, pwd];
+    //         const { rows } = await pool.query(query, values);
+    //         return rows[0];
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
+    
 
 
     async getAllUsers() {
@@ -34,7 +56,7 @@ class UserModel {
 
     async getUserById(userId) {
         try {
-            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE id = ?', [userId]);
+            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE id = $1', [userId]);
             return rows[0];
         } catch (error) {
             throw error;

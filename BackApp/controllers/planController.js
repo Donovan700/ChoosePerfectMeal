@@ -15,7 +15,7 @@ class PlanController {
 
     async getAllPlans(req, res) {
         try {
-            const plans = await PlanModel.getAllPlans();
+            const plans = await PlanModel.getAllplans();
             res.status(200).json(plans);
         } catch (error) {
             res.status(500).send('Internal Server Error');
