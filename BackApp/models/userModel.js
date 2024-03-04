@@ -31,7 +31,7 @@ class UserModel {
 
     async getUserById(userId) {
         try {
-            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE iduser = ?', [userId]);
+            const { rows } = await pool.query('SELECT * FROM utilisateur WHERE iduser = $1', [userId]);
             return rows[0];
         } catch (error) {
             throw error;
