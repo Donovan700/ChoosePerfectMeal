@@ -25,7 +25,7 @@ class FoodModel {
 
     async getFoodById(foodid) {
         try {
-            const { rows } = await pool.query('SELECT * FROM repas WHERE numr = ?', [foodid]);
+            const { rows } = await pool.query('SELECT * FROM repas WHERE numr = $1', [foodid]);
             return rows[0];
         } catch (error) {
             throw error;
@@ -35,7 +35,7 @@ class FoodModel {
     async updateFood(foodid, foodData) {
         try {
             const { design, descr, difficul, time } = foodData;
-            const { rowCount } = await pool.query('UPDATE repas SET designr = ?, descrr = ?, difficulr = ?, tempsr = ? WHERE numr = ?', [design, descr, difficul, time, foodid]);
+            const { rowCount } = await pool.query('UPDATE repas SET designr = $1, descrr = $2, difficulr = $3, tempsr = $4 WHERE numr = $5', [design, descr, difficul, time, foodid]);
             return rowCount > 0;
         } catch (error) {
             throw error;
@@ -44,7 +44,7 @@ class FoodModel {
 
     async deleteFood(foodid) {
         try {
-            const {rowCount} = await pool.query('DELETE FROM repas WHERE numr = ?', foodid);
+            const {rowCount} = await pool.query('DELETE FROM repas WHERE numr = $1', foodid);
             return rowCount > 0;
         }
         catch (error) {
