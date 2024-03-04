@@ -1,4 +1,4 @@
-const FoodModel = require('../models/foodModel');
+const FoodModel = require('../models/foodModel.js');
 
 class FoodController {
 

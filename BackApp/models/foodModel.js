@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'PerfectMeal',
-    password: 'password',
-    port: 5432,
-});
-
+const { pool } = require('../connexion/connexion.js');
 class FoodModel {
 
     async createFood(foodData) {
