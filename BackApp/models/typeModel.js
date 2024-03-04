@@ -42,7 +42,7 @@ class TypeModel {
     async updateType(numt, typeData) {
         try {
             const { designt } = typeData;
-            const { rowCount } = await pool.query('UPDATE type SET designt = ? WHERE numt = ?', [designt, numt]);
+            const { rowCount } = await pool.query('UPDATE type SET designt = $1 WHERE numt = $2', [designt, numt]);
             return rowCount > 0;
         } catch (error) {
             throw error;
@@ -51,7 +51,7 @@ class TypeModel {
 
     async deleteType(numt) {
         try {
-            const { rowCount } = await pool.query('DELETE FROM type WHERE numt = ?', [numt]);
+            const { rowCount } = await pool.query('DELETE FROM type WHERE numt = $1', [numt]);
             return rowCount > 0;
         }
         catch (error) {

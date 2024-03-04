@@ -41,7 +41,7 @@ class UserModel {
     async updateUser(userId, userData) {
         try {
             const { nomuser, emailuser } = userData;
-            const { rowCount } = await pool.query('UPDATE utilisateur SET nomuser = ?, emailuser = ? WHERE iduser = ?', [nomuser, emailuser, userId]);
+            const { rowCount } = await pool.query('UPDATE utilisateur SET nomuser = $1, emailuser = $2 WHERE iduser = $3', [nomuser, emailuser, userId]);
             return rowCount > 0;
         } catch (error) {
             throw error;
@@ -50,7 +50,7 @@ class UserModel {
 
     async deleteUser(userid) {
         try {
-            const {rowCount} = await pool.query('DELETE FROM utilisateur WHERE iduser = ?', [userid]);
+            const {rowCount} = await pool.query('DELETE FROM utilisateur WHERE iduser = $1', [userid]);
             return rowCount > 0;
         }
         catch (error) {
